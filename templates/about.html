@@ -1,0 +1,52 @@
+<div class="text-left">
+<h3>Acknowledgement</h3>
+<p><small>A 100% inspired by the fine work and services provided by <a href="https://arma3.swec.se/">https://arma3.swec.se/</a> (while it was still up).</small></p>
+<h3>About</h3>
+<p>DCS Server Tracker (DCST) is a tool that allows you to keep track of <a href="https://www.digitalcombatsimulator.com/">DCS World</a> online servers. It tracks the servers, the number of players and which scenarios are played on them and tries to present all the information gathered in something that is easy to see at a glance.</p>
+<h3>Development</h3>
+<p>Made using the following tools:
+  <ul>
+    <li><a href="https://atom.io/">Atom Editor</a></li>
+    <li><a href="https://git-scm.com/">Git</a></li>
+    <li><a href="https://golang.org/">Go</a></li>
+    <li><a href="https://prometheus.io/">Prometheus</a></li>
+    <li><a href="https://redis.io/">Redis</a></li>
+    <li><a href="https://aws.amazon.com/cloudfront/">AWS CloudFront</a> (Which as a pain to setup the first time)</li>
+  </ul>
+<p>Questions? Bugs? Contribute? Run your own instance? <a href="https://github.com/GlowieXYZ/GDCSST/">Check this out at GitHub.</a></p>
+<p>TODO:
+  <ul>
+    <li>Add nice server filters (need Javascript skills for that)</li>
+    <li>Have a dedicated server detector running. (No idea how to do this...)</li>
+    <li>Make it possible to search servers</li>
+  </ul>
+</p>
+<p>&nbsp;</p>
+<h3>Changelog</h3>
+<h4>2021-10-19: Rewrite in Go</h4>
+<ul>
+  <li>Finally got the time to rewrite this application in Go and use tech that allows it to continue for extended periods of time without my intervention. I am so lazy, so if I get this right I shouldn't have to bother unless the monitoring starts alerting me. :-)</li>
+</ul>
+<h4>2019-09-16: Improving one line at the time!</h4>
+<ul>
+  <li>MySQL queries go through redis now to improve query speed.</li>
+</ul>
+<h4>2019-09-15: Lets try again..</h4>
+<ul>
+  <li>Replaced DynamoDB and memcached in favour of redis.</li>
+  <li>Dumped all the MySQL related queries into a function. Makes it SLOW AF. But should cause less trouble in the long run.</li>
+</ul>
+<h4>2019-03-16: I needed a global CDN for this?</h4>
+<ul>
+  <li>Show country-flags of where the servers are hosted.</li>
+  <li>Cached IP->Country results into memcached</li>
+</ul>
+<h4>2019-03-15: The great "What is sleep?" rewrite!</h4>
+<ul>
+  <li><b>Rewrote and relaunched the application</b></li>
+  <li>Moved server-data to MySQL from DynamoDB</li>
+  <li>Moved session-data to MySQL for later processing</li>
+  <li>Moved player-data to MySQL for later processing</li>
+</ul>
+
+</div>

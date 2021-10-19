@@ -1,0 +1,27 @@
+<div class="text-center">
+  <table style="border: 1px solid black;" width="100%" align="center">
+    <tr>
+      <td align="right"><b>Currently Active Servers:</b></td><td align="left">{{.ServerCount}}</td>
+      <td align="right"><b>Players:</b></td><td align="left">{{.PlayerCount}}</td>
+    </tr>
+  </table>
+</div>
+&nbsp;
+<div class="text-center">
+  <table style="border: 1px solid black;" width="100%" align="center">
+    <tr>
+      <td><a href="/servers?sort=Country:DESC">&#9660;</a>&nbsp;<a href="/servers?sort=Country:ASC">&#9650;</a></td>
+      <td><b>Server Name <a href="/servers?sort=Server:DESC">&#9660;</a>&nbsp;<a href="/servers?sort=Server:ASC">&#9650;</a></b></td>
+      <td><b>Scenario<a href="/servers?sort=Scenario:DESC">&#9660;</a>&nbsp;<a href="/servers?sort=Scenario:ASC">&#9650;</a></b></td>
+      <td><a href="/servers?sort=Players:DESC">&#9660;</a>&nbsp;<a href="/servers?sort=Players:ASC">&#9650;</a></td>
+    </tr>
+    {{ range .Servers }}
+    <tr class="servers" style="background-color: #{ loop.cycle('ffffff', 'f2f2f2')}">
+      <td>{{ if .Password }}<span title="Server has a password">🔒</span>{{ else }}<span title="Server is public">🌏</span>{{ end }}</td>
+      <td align="left"><img src="https://cdn.glowie.xyz/icons/flags/{{.ISO}}.gif" title="{{.CountryName}}" />&nbsp;<a href="/servers/{{.IPAddress}}:{{.Port}}" title="{{.Description}}">{{.Name}}</a></td>
+      <td align="left"><a href="/servers/{{.IPAddress}}:{{.Port}}" title="{{.Description}}">{{.MissionName}}</a></td>
+      <td>{{.Players}}</td>
+    </tr>
+    {{ end }}
+  </table>
+</div>

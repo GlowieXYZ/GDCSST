@@ -1,0 +1,34 @@
+{{ if .Name }}
+<div class="text-center">
+  <table width="80%" align="center">
+    <tr style="background-color: #f2f2f2">
+      <th valign="top" align="right">Name</th>
+      <td align="left"><img src="https://cdn.glowie.xyz/icons/flags/{{.ISO}}.gif" title="{{.CountryName}}" /> {{ if .Password }}<span title="Server has a password">🔒</span>{{ else }}<span title="Server is public">🌏</span>{{ end }} {{ if .LastUpdate }}<span title="Server is up">✈</span>{{ else }}<span title="Server is down">:-()</span>{{ end }}&nbsp;{{.Name}}</td>
+    </tr>
+    <tr>
+      <th valign="top" align="right">Scenario:</th>
+      <td align="left">{{.MissionName}} ({{.MissionTimeFormatted}})</td>
+    </tr>
+    <tr>
+      <td colspan="2"><img src="http://img.glowie.xyz:8080/?width=900&height=450&g0.expr=gdcsst_players{server=%22{{.IPAddress}}:{{.Port}}%22}&g0.legend=Players%20Online"></td>
+    </tr>
+    <tr style="background-color: #f2f2f2">
+      <th valign="top" align="right">Players&nbsp;(max)</th>
+      <td align="left">{{.Players}} ({{.PlayersMax}})</td>
+    </tr>
+    <tr>
+      <th valign="top" align="right">Description:</th>
+      <td align="left">{{.Description}}</td>
+    </tr>
+    <!--
+    <tr style="background-color: #f2f2f2">
+      <th valign="top" align="right">Related&nbsp;Servers</th>
+      <td align="left"><ul><li><a href="/servers/host.IP_ADDRESS:host.PORT">host.NAME</a></li></ul></td>
+    </tr>
+    -->
+  </table>
+</div>
+
+{{ else }}
+  <div class="text-center">Server not found. Is it on? Try again in a few minutes.</div>
+{{ end }}
