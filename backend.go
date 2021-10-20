@@ -66,8 +66,6 @@ func updateServers() {
 			GdcsstPlayers.WithLabelValues(serverID).Set(p)
 		}
 
-		//log.Println("Num Servers", len(servers.Servers))
-
 		// Connect to the GeoIP2 database
 		db, err := geoip2.Open(AppConfig.GeoIP2File)
 		if err != nil {
@@ -99,6 +97,11 @@ func updateServers() {
 			// Server Password
 			var serverPassword bool
 
+			// " Thank you for your message. Spaces are inserted intentionally after every 20 symbol to reduce table width in server and mission name. " -- ED IT Team
+			// Thanks...😒
+			if strings.Index(server.MissionName, " ") == 20 {
+				server.MissionName = strings.ReplaceAll(server.MissionName, " ", "")
+			}
 			// Server stuff
 			serverMissionTime, _ := strconv.ParseInt(server.MissionTime, 10, 8)
 			serverPlayers, _ := strconv.ParseInt(server.Players, 10, 8)
