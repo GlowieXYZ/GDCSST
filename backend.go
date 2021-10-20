@@ -30,6 +30,7 @@ func updateServers() {
 		// Update the prometheus exporter
 		updatePrometheus()
 
+		// Process the DCS Servers
 		processDCSServers(currDate)
 
 		// Update the maxims
