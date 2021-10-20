@@ -32,7 +32,7 @@ func redisGet(key string) string {
 	closeRedis(&rdb)
 
 	if err != nil {
-		log.Println(err)
+		log.Println("Redis error kicked in:", err, " This was with key", key)
 		return ""
 	}
 
