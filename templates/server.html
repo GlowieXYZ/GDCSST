@@ -20,12 +20,12 @@
       <th valign="top" align="right">Description:</th>
       <td align="left">{{.Description}}</td>
     </tr>
-    <!--
+    {{if .Related}}
     <tr style="background-color: #f2f2f2">
       <th valign="top" align="right">Related&nbsp;Servers</th>
-      <td align="left"><ul><li><a href="/servers/host.IP_ADDRESS:host.PORT">host.NAME</a></li></ul></td>
+      <td align="left"><ul>{{range .Related}}<li><a href="/servers/{{.ServerID}}">{{.Name}}</a></li>{{end}}</ul></td>
     </tr>
-    -->
+    {{end}}
   </table>
 </div>
 

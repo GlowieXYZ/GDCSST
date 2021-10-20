@@ -51,6 +51,28 @@ type ServerMeta struct {
 	LastUpdate           int
 }
 
+type RelatedServers struct {
+	ServerID string
+	Name     string
+}
+
+type ServerMetaRelated struct {
+	Name                 string
+	IPAddress            string
+	Port                 string
+	MissionName          string
+	MissionTime          int    // Convert
+	Players              int    // Convert
+	PlayersMax           int    // Convert
+	Password             bool   // "Yes"/"No"
+	Description          string // "No"
+	MissionTimeFormatted string
+	CountryName          string // These are new
+	ISO                  string
+	LastUpdate           int
+	Related              []RelatedServers
+}
+
 // GlobalMaxims Maxims recorded for storage in Redis
 type GlobalMaxims struct {
 	MaxServers     int

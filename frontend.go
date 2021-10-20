@@ -132,6 +132,7 @@ func handleServers(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleServer(w http.ResponseWriter, r *http.Request) {
+	var err error
 	url := r.URL.String()
 
 	// Redirect /servers/ -> /servers
@@ -142,11 +143,20 @@ func handleServer(w http.ResponseWriter, r *http.Request) {
 	// Parse data
 	server := url[9:]
 	ServerInfo := redisGet(server)
-	var ServerDataMeta ServerMeta
-	err := json.Unmarshal([]byte(ServerInfo), &ServerDataMeta)
-	//	if err != nil {
-	//		log.Println("Server nofound")
-	//	}
+	var ServerDataMeta ServerMetaRelated
+	json.Unmarshal([]byte(ServerInfo), &ServerDataMeta)
+
+	relatedServersRaw := findRelatedServers(ServerDataMeta.IPAddress, ServerDataMeta.Port)
+	if len(relatedServersRaw) >= 1 {
+		for _, relatedServer := range relatedServersRaw {
+			secundairyServer := fetchServerInfo(relatedServer)
+			rserver := RelatedServers{
+				ServerID: secundairyServer.IPAddress + ":" + secundairyServer.Port,
+				Name:     secundairyServer.Name,
+			}
+			ServerDataMeta.Related = append(ServerDataMeta.Related, rserver)
+		}
+	}
 
 	var renderRequest string
 	renderRequest = "html"

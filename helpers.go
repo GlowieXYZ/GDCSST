@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -52,6 +53,16 @@ func redisSet(key string, data []byte, ttl time.Duration) {
 	}
 }
 
+func redisKeys(search string) []string {
+	rdb := connectRedis()
+	val, err := rdb.Keys(ctx, search).Result()
+	closeRedis(&rdb)
+	if err != nil {
+		log.Println("Redis key() failed:", err)
+	}
+	return val
+}
+
 func fetchEnv(variable string, defaultVar string) string {
 	val, ok := os.LookupEnv(variable)
 	if ok {
@@ -59,6 +70,31 @@ func fetchEnv(variable string, defaultVar string) string {
 	}
 	return defaultVar
 
+}
+
+func findRelatedServers(server string, port string) []string {
+	// Variable declarations
+	var serverID string
+	var relatedServers []string
+	var related []string
+
+	serverID = server + ":" + port
+	related = redisKeys(server + "*")
+	if len(related) > 1 {
+		for _, relatedServer := range related {
+			if relatedServer != serverID {
+				relatedServers = append(relatedServers, relatedServer)
+			}
+		}
+	}
+	return relatedServers
+} // End Function: updateRelatedServers()
+
+func fetchServerInfo(server string) ServerMeta {
+	ServerInfo := redisGet(server)
+	var ServerDataMeta ServerMeta
+	json.Unmarshal([]byte(ServerInfo), &ServerDataMeta)
+	return ServerDataMeta
 }
 
 func processConfig() Config {
