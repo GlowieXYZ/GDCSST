@@ -11,6 +11,7 @@ type Config struct {
 	RedisDB       string
 	GeoIP2File    string
 	PromPNGURL    string
+	BlackList     string
 }
 
 // DCSServers is struct to capture the JSON data returning from DCS.com

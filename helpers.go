@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"time"
@@ -69,7 +71,19 @@ func processConfig() Config {
 		RedisPassword: fetchEnv("DCS_SERVER_TRACKER_REDIS_PASSWORD", ""),
 		RedisDB:       fetchEnv("DCS_SERVER_TRACKER_REDIS_DB", "0"),
 		GeoIP2File:    fetchEnv("DCS_SERVER_TRACKER_GEOIP2_FILE", "GeoLite2-Country.mmdb"),
+		BlackList:     fetchEnv("DCS_SERVER_TRACKER_BLACKLIST", ""),
 		PromPNGURL:    fetchEnv("DCS_SERVER_TRACKER_PROMPNG_URL", "http://localhost:8080/"),
 	}
+
+	log.Println("Using the following config:")
+	fmt.Println("DCS_SERVER_TRACKER_ED_USER:", AppConfig.EDUser)
+	fmt.Println("DCS_SERVER_TRACKER_ED_PASS: ****")
+	fmt.Println("DCS_SERVER_TRACKER_REDIS_IP", AppConfig.RedisIP)
+	fmt.Println("DCS_SERVER_TRACKER_REDIS_PORT", AppConfig.RedisPort)
+	fmt.Println("DCS_SERVER_TRACKER_REDIS_PASSWORD: ****")
+	fmt.Println("DCS_SERVER_TRACKER_REDIS_DB", AppConfig.RedisDB)
+	fmt.Println("DCS_SERVER_TRACKER_GEOIP2_FILE", AppConfig.GeoIP2File)
+	fmt.Println("DCS_SERVER_TRACKER_BLACKLIST:", AppConfig.BlackList)
+
 	return AppConfig
 }

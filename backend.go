@@ -183,8 +183,10 @@ func updateServers() {
 
 				cacheIgnored++
 			}
-			ServerList = append(ServerList, metadata)
-		}
+			if strings.Contains(server.Name, AppConfig.BlackList) == false {
+				ServerList = append(ServerList, metadata)
+			}
+		} // End of Server processing function
 		log.Printf("Done processing servers: %d processed and %d ignored.", cacheResolved, cacheIgnored)
 
 		msg, err := json.Marshal(ServerList)
