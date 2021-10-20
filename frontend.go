@@ -15,38 +15,38 @@ import (
 
 func compileTemplate(w http.ResponseWriter, title string, content string) {
 	type TemplateData struct {
-		Title          string
-		Content        string
-		Active_Servers bool
-		Active_Stats   bool
-		Active_About   bool
-		LastUpdate     string
+		Title         string
+		Content       string
+		ActiveServers bool
+		ActiveStats   bool
+		ActiveAbout   bool
+		LastUpdate    string
 	}
 
-	var Active_Servers bool
-	var Active_Stats bool
-	var Active_About bool
+	var ActiveServers bool
+	var ActiveStats bool
+	var ActiveAbout bool
 
 	LastUpdate, _ := strconv.ParseInt(redisGet("LastUpdate"), 10, 64)
 	t := time.Unix(LastUpdate, 0)
 
 	switch title {
 	case "About":
-		Active_About = true
+		ActiveAbout = true
 	case "Stats":
-		Active_Stats = true
+		ActiveStats = true
 	default:
-		Active_Servers = true
+		ActiveServers = true
 
 	}
 
 	data := TemplateData{
-		Title:          title,
-		Content:        content,
-		Active_Servers: Active_Servers,
-		Active_Stats:   Active_Stats,
-		Active_About:   Active_About,
-		LastUpdate:     t.Format(time.RFC3339),
+		Title:         title,
+		Content:       content,
+		ActiveServers: ActiveServers,
+		ActiveStats:   ActiveStats,
+		ActiveAbout:   ActiveAbout,
+		LastUpdate:    t.Format(time.RFC3339),
 	}
 
 	tmpl := template.Must(template.ParseFiles("templates/template.html"))

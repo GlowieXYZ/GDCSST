@@ -10,6 +10,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
+// AppConfig is the config all other config is derived from.
 var AppConfig Config
 
 var (

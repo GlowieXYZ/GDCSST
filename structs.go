@@ -51,11 +51,13 @@ type ServerMeta struct {
 	LastUpdate           int
 }
 
+// RelatedServers A small and simple struct for the related servers thing
 type RelatedServers struct {
 	ServerID string
 	Name     string
 }
 
+// ServerMetaRelated ServerMeta struct that incorporates the RelatedServers struct
 type ServerMetaRelated struct {
 	Name                 string
 	IPAddress            string
