@@ -3,8 +3,18 @@
 <p><small>A 100% inspired by the fine work and services provided by <a href="https://arma3.swec.se/">https://arma3.swec.se/</a> (while it was still up).</small></p>
 <h3>About</h3>
 <p>DCS Server Tracker (DCST) is a tool that allows you to keep track of <a href="https://www.digitalcombatsimulator.com/">DCS World</a> online servers. It tracks the servers, the number of players and which scenarios are played on them and tries to present all the information gathered in something that is easy to see at a glance.</p>
-<h3>Development</h3>
-<p>Made using the following tools:
+<h3>Features</h3>
+<p>This site features the following:</p>
+<ul>
+  <li>An up to to date list of DCS Servers (kindly provided by digitalcombatsimulator.com)</li>
+  <li>Sorting functions</li>
+  <li>Per server graph of recently active players along with additional information</li>
+  <li>Providing tools for the community like server info in JSON or a Prometheus exporter (See the Tech section)</li>
+</ul>
+
+<h3>Tech</h3>
+<h4>Tools used</h4>
+<p>GDCSST is made using the following tools:
   <ul>
     <li><a href="https://atom.io/">Atom Editor</a></li>
     <li><a href="https://git-scm.com/">Git</a></li>
@@ -14,13 +24,21 @@
     <li><a href="https://redis.io/">Redis</a></li>
     <li><a href="https://aws.amazon.com/cloudfront/">AWS CloudFront</a> (Which as a pain to setup the first time)</li>
   </ul>
-<p>Questions? Bugs? Contribute? Run your own instance? <a href="https://github.com/GlowieXYZ/GDCSST/">Check this out at GitHub.</a></p>
-<p>TODO:
+  <h4>JSON data of servers</h4>
+  <p>This site offers the ability to get server data as stored in Redis in JSON format. This is achieved by setting the "Accept" header to "application/json" as so:</p>
+  <ul>
+    <li>curl -H "accept: application/json" https://dcs.glowie.xyz/servers/136.243.51.111:10300</li>
+  </ul>
+  <p>This is setup to allow your script or discord-bot to collect metrics on your server without having to hammer the DCS servers and go through all the hoops. Hope it helps.</p>
+  <h4>Prometheus Exporter</h4>
+  <p>This service also provides a public Prometheus exporter for use. The URL is <a href="https://dcs.glowie.xyz/metrics">https://dcs.glowie.xyz/metrics</a>. This allows you to collect your own data and create nice graphs than I ever can.</p>
+  <h4>GitHub repo</h4>
+  <p>Questions? Bugs? Contribute? Run your own instance? <a href="https://github.com/GlowieXYZ/GDCSST/">Check this out at GitHub.</a></p>
+  <h4>TODO</h4>
   <ul>
     <li>Add nice server filters (need Javascript skills for that)</li>
     <li>Have a dedicated server detector running.</li>
   </ul>
-</p>
 <p>&nbsp;</p>
 <h3>Changelog</h3>
 <h4>2021-10-19: Rewrite in Go</h4>

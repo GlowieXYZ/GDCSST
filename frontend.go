@@ -145,15 +145,28 @@ func handleServer(w http.ResponseWriter, r *http.Request) {
 		log.Println("Server nofound")
 	}
 
-	var tpl bytes.Buffer
-	parsedTemplate, _ := template.ParseFiles("templates/server.html")
-	err = parsedTemplate.Execute(&tpl, ServerDataMeta)
-	if err != nil {
-		log.Println("Error executing template :", err)
-		return
+	var renderRequest string
+	renderRequest = "html"
+	if r.Header.Get("Accept") == "application/json" {
+		renderRequest = "json"
 	}
 
-	compileTemplate(w, "Servers", tpl.String())
+	if renderRequest == "html" {
+		var tpl bytes.Buffer
+		parsedTemplate, _ := template.ParseFiles("templates/server.html")
+		err = parsedTemplate.Execute(&tpl, ServerDataMeta)
+		if err != nil {
+			log.Println("Error executing template :", err)
+			return
+		}
+
+		compileTemplate(w, "Servers", tpl.String())
+	} else if renderRequest == "json" {
+		ServerDataMeta.Description = strings.Replace(ServerDataMeta.Description, "\u003cbr /\u003e", "", -1)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		json.NewEncoder(w).Encode(ServerDataMeta)
+	}
 
 }
 
