@@ -66,6 +66,9 @@ func handleServers(w http.ResponseWriter, r *http.Request) {
 
 	// Fetch the data from Redis and Unmarshal it
 	metadata := redisGet("metadata")
+	//	if metadata == "" {
+	//		compileTemplate(w, "Servers", "Server not found.")
+	//	}
 	var ServerMetaData []ServerMeta
 	err = json.Unmarshal([]byte(metadata), &ServerMetaData)
 	if err != nil {
@@ -141,9 +144,9 @@ func handleServer(w http.ResponseWriter, r *http.Request) {
 	ServerInfo := redisGet(server)
 	var ServerDataMeta ServerMeta
 	err := json.Unmarshal([]byte(ServerInfo), &ServerDataMeta)
-	if err != nil {
-		log.Println("Server nofound")
-	}
+	//	if err != nil {
+	//		log.Println("Server nofound")
+	//	}
 
 	var renderRequest string
 	renderRequest = "html"

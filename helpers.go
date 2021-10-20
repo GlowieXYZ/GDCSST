@@ -32,7 +32,8 @@ func redisGet(key string) string {
 	closeRedis(&rdb)
 
 	if err != nil {
-		panic(err)
+		log.Println(err)
+		return ""
 	}
 
 	if err == redis.Nil {
